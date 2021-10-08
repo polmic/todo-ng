@@ -21,3 +21,7 @@
   padding: 5px;
   background-color: rgba(143, 188, 143,.1);
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}

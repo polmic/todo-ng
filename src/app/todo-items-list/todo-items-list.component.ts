@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TodoService} from "../todo.service";
 import {TodoItem} from "../todo-item";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-todo-items-list',
@@ -13,19 +14,13 @@ export class TodoItemsListComponent implements OnInit {
     errorMessage: string;
     successMessage: string;
 
-    constructor(private todoService: TodoService) {
+    constructor(private todoService: TodoService, private router: Router) {
     }
 
     ngOnInit() {
         this.todoItems = [];
         this.doneItems = [];
         this.todoService.getAllTodoItems().subscribe(items => this._allocateItems(items));
-    }
-
-    _allocateItems(items) {
-        for (let i = 0; i < items.length; i++) {
-            items[i].done ? this.doneItems.push(items[i]) : this.todoItems.push(items[i]);
-        }
     }
 
     updateItem(item) {
@@ -35,6 +30,24 @@ export class TodoItemsListComponent implements OnInit {
                 next: result => this._updateArrays(item),
                 error: error => this._logError(error.error)
             });
+    }
+
+    displayItem(item: TodoItem) {
+        this.todoService.getItem(item.uuid)
+            .subscribe({
+                next: result => this.router.navigate(['/todo/item', result.uuid], {state: {data: result}}),
+                error: error => this._logError(error.error)
+            });
+    }
+
+    /*
+        PRIVATE FUNCTIONS
+     */
+
+    _allocateItems(items) {
+        for (let i = 0; i < items.length; i++) {
+            items[i].done ? this.doneItems.push(items[i]) : this.todoItems.push(items[i]);
+        }
     }
 
     _updateArrays(item) {

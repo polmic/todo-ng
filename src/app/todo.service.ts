@@ -18,7 +18,11 @@ export class TodoService {
     return this.http.get<TodoItem[]>(this.todoUrl);
   }
 
-  public updateItem(item): Observable<TodoItem> {
+  public getItem(uuid: string): Observable<TodoItem> {
+    return this.http.get<TodoItem>(this.todoUrl + "/item/" + uuid);
+  }
+
+  public updateItem(item: TodoItem): Observable<TodoItem> {
     return this.http.put<TodoItem>(this.todoUrl + "/item/" + item.uuid, item);
   }
 

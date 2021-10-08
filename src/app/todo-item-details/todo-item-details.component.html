@@ -1,0 +1,5 @@
+<h5 class="success-msg" *ngIf="todoItem.done">Done</h5>
+<h5 class="error-msg" *ngIf="!todoItem.done">Not done</h5>
+<h2>{{todoItem.title}}</h2>
+<h5>{{todoItem.description}}</h5>
+<a class="button button-primary" routerLink="/todo">Previous</a>
