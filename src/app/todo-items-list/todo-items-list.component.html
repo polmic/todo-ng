@@ -1,19 +1,44 @@
-<div class="section">
-    <table class="u-full-width">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>Done</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tbody>
-        <tr *ngFor="let item of todoItems let index = index;">
-            <td>{{ index + 1 }}</td>
-            <td>{{ item.title }}</td>
-            <td>{{ item.done }}</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<table class="u-full-width">
+    <thead>
+    <tr>
+        <th class="width-35px">#</th>
+        <th>TODO</th>
+        <th class="width-35px">Done</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tbody>
+    <tr *ngFor="let item of todoItems let index = index;" (click)="updateItem(item)">
+        <td>{{ index + 1 }}</td>
+        <td>{{ item.title }}</td>
+        <td>
+            <input type="checkbox"
+                   [(ngModel)]="item.done"
+                   (change)="updateItem(item)"
+            >
+        </td>
+    </tr>
+    </tbody>
+</table>
+<table class="u-full-width">
+    <thead>
+    <tr>
+        <th class="width-35px">#</th>
+        <th>DONE</th>
+        <th class="width-35px">Done</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tbody>
+    <tr *ngFor="let item of doneItems let index = index;" (click)="updateItem(item)">
+        <td>{{ index + 1 }}</td>
+        <td class="strikethrough">{{ item.title }}</td>
+        <td>
+            <input type="checkbox" [(ngModel)]="item.done">
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div *ngIf="errorMessage" class="error-msg">{{errorMessage}}</div>
+<div *ngIf="successMessage" class="success-msg">{{successMessage}}</div>

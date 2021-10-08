@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/styles/custom.css",
               "src/styles/skeleton.css",
               "src/styles/normalize.css"
             ],
@@ -90,6 +91,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/styles/custom.css",
               "src/styles/skeleton.css",
               "src/styles/normalize.css"
             ],
