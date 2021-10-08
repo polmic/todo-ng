@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HttpClientModule} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TodoService} from "./todo.service";
 import {TodoItemsListComponent} from './todo-items-list/todo-items-list.component';
 import {TodoItemDetailsComponent} from './todo-item-details/todo-item-details.component';
@@ -19,7 +19,8 @@ import {TodoItemDetailsComponent} from './todo-item-details/todo-item-details.co
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [TodoService],
     bootstrap: [AppComponent]

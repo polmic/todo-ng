@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TodoService} from "../todo.service";
 import {TodoItem} from "../todo-item";
 import {Router} from "@angular/router";
+import {FormBuilder, Validators} from "@angular/forms";
 
 @Component({
     selector: 'app-todo-items-list',
@@ -13,8 +14,14 @@ export class TodoItemsListComponent implements OnInit {
     doneItems: TodoItem[];
     errorMessage: string;
     successMessage: string;
+    newItem: boolean;
 
-    constructor(private todoService: TodoService, private router: Router) {
+    newItemForm = this.formBuilder.group({
+        title: ['', Validators.required],
+        description: ''
+    });
+
+    constructor(private todoService: TodoService, private formBuilder: FormBuilder, private router: Router) {
     }
 
     ngOnInit() {
@@ -40,17 +47,35 @@ export class TodoItemsListComponent implements OnInit {
             });
     }
 
+    createItem() {
+        if (this.newItemForm.invalid) {
+            return;
+        }
+        this.todoService.saveItem(this.newItemForm.value)
+            .subscribe({
+                next: result => this._addItemToList(result),
+                error: error => this._logError(error.error)
+            });
+    }
+
     /*
         PRIVATE FUNCTIONS
      */
 
-    _allocateItems(items) {
+    private _addItemToList(result) {
+        this.todoItems.unshift(result);
+        this.newItem = false;
+        this.newItemForm.reset();
+        this._logSuccess("item successfully created")
+    }
+
+    private _allocateItems(items) {
         for (let i = 0; i < items.length; i++) {
             items[i].done ? this.doneItems.push(items[i]) : this.todoItems.push(items[i]);
         }
     }
 
-    _updateArrays(item) {
+    private _updateArrays(item) {
         if (item.done) {
             this._removeItemFromArray(this.todoItems, item);
             this.doneItems.push(item);
@@ -58,23 +83,23 @@ export class TodoItemsListComponent implements OnInit {
             this._removeItemFromArray(this.doneItems, item)
             this.todoItems.push(item);
         }
-        this._logSucess("item successfully updated")
+        this._logSuccess("item successfully updated")
     }
 
-    _removeItemFromArray(array, item) {
+    private _removeItemFromArray(array, item) {
         array.forEach((value, index) => {
             if (value == item) array.splice(index, 1);
         });
     }
 
-    _logSucess(message) {
+    private _logSuccess(message) {
         this.successMessage = message;
         setTimeout(() => {
             this.successMessage = "";
         }, 1800);
     }
 
-    _logError(error) {
+    private _logError(error) {
         console.error(error);
         this.errorMessage = error.message;
         setTimeout(() => {

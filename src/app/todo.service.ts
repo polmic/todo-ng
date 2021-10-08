@@ -22,6 +22,10 @@ export class TodoService {
     return this.http.get<TodoItem>(this.todoUrl + "/item/" + uuid);
   }
 
+  public saveItem(item: TodoItem): Observable<TodoItem> {
+    return this.http.post<TodoItem>(this.todoUrl, item);
+  }
+
   public updateItem(item: TodoItem): Observable<TodoItem> {
     return this.http.put<TodoItem>(this.todoUrl + "/item/" + item.uuid, item);
   }

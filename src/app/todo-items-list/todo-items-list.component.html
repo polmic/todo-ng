@@ -39,3 +39,21 @@
 
 <div *ngIf="errorMessage" class="error-msg">{{errorMessage}}</div>
 <div *ngIf="successMessage" class="success-msg">{{successMessage}}</div>
+
+<button *ngIf="!newItem" class="button button-primary" (click)="newItem = true">New</button>
+
+<div *ngIf="newItem">
+    <form [formGroup]="newItemForm" (ngSubmit)="createItem()">
+        <div class="row">
+            <div class="nine columns">
+                <label for="title">Title</label>
+                <input id="title" class="u-full-width" formControlName="title" required type="text" placeholder="title">
+                <div class="invalid-form-msg" *ngIf="newItemForm.controls.title.errors && newItemForm.controls.title.errors.required">Required</div>
+            </div>
+        </div>
+        <label for="description">Description</label>
+        <textarea id="description" class="u-full-width" formControlName="description" placeholder="description"></textarea>
+        <button class="button mgr10" (click)="newItem = false">Cancel</button>
+        <button class="button button-primary" type="submit">Create</button>
+    </form>
+</div>

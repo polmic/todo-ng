@@ -2,6 +2,10 @@
   width: 35px;
 }
 
+.mgr10 {
+  margin-right: 10px;
+}
+
 .strikethrough {
   text-decoration: line-through;
 }
@@ -12,6 +16,7 @@
   border: 1px solid indianred;
   padding: 5px;
   background-color: rgba(205, 92, 92,.1);
+  margin-bottom: 25px;
 }
 
 .success-msg {
@@ -20,8 +25,15 @@
   border: 1px solid darkseagreen;
   padding: 5px;
   background-color: rgba(143, 188, 143,.1);
+  margin-bottom: 25px;
 }
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.invalid-form-msg {
+  color: orangered;
+  margin-left: 5px;
+  margin-bottom: 5px;
 }
