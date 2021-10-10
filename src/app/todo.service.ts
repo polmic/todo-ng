@@ -13,7 +13,7 @@ export class TodoService {
   headers = new HttpHeaders({'Access-Control-Allow-Origin':'*'});
 
   constructor(private http: HttpClient) {
-    this.todoUrl = 'http://109.220.136.150:8080/todo/';
+    this.todoUrl = 'http://localhost:8080/todo/';
   }
 
   public getAllTodoItems(): Observable<TodoItem[]> {
