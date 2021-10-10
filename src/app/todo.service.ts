@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {TodoItem} from "./todo-item";
 import {Observable} from "rxjs";
 
@@ -10,12 +10,14 @@ export class TodoService {
 
   private readonly todoUrl: string;
 
+  headers = new HttpHeaders({'Access-Control-Allow-Origin':'*'});
+
   constructor(private http: HttpClient) {
-    this.todoUrl = 'http://localhost:8080/todo';
+    this.todoUrl = 'http://109.220.136.150:8080/todo/';
   }
 
   public getAllTodoItems(): Observable<TodoItem[]> {
-    return this.http.get<TodoItem[]>(this.todoUrl);
+    return this.http.get<TodoItem[]>(this.todoUrl, {headers: this.headers});
   }
 
   public getItem(uuid: string): Observable<TodoItem> {
