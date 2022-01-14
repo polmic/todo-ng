@@ -1,6 +1,6 @@
 # TodoNg
 
-A simple Angular 8 TodoList.
+A simple Angular 8 TodoList. 
 
 Data is retrived from a [SpringBoot API](https://github.com/polmic/todo-sb).
 
